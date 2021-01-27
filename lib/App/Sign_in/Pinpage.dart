@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/App/Sign_in/passcodepage.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:flutter/services.dart';
 class Pinpage extends StatefulWidget {
@@ -121,7 +122,21 @@ class _PinpageState extends State<Pinpage> {
                      ),
                    ),
                  ),
-                 Text("Skip",style: TextStyle(color: Colors.white,fontSize: 20),)
+                 // Container(
+                 //   height: 20,
+                 //   child: GestureDetector(
+                 //       onTap: () {
+                 //         setState(() {
+                 //           Navigator.push(context,
+                 //               MaterialPageRoute(
+                 //                   builder: (context) => passcodepage())
+                 //           );
+                 //         });
+                 //       },
+                 //       child:Text("Skip",style: TextStyle(color: Colors.white,fontSize: 20),)
+                 //       ),
+                 // ),
+                 //Text("Skip",style: TextStyle(color: Colors.white,fontSize: 20),)
                ],
              ),
            )
