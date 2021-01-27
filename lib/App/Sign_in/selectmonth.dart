@@ -1,117 +1,114 @@
-
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-_loadCounter() async {
-  final prefs = await SharedPreferences.getInstance();
-  //Return String
-  final stringValue = prefs.getString('stringValue');
-  print("value in select:$stringValue");
-
-}
-
-
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      //enable this line if you want test Dark Mode
-      //theme: ThemeData.dark(),
-      home: selectmonth(),
-    );
-  }
-}
-
+import 'package:flutter_app/App/Sign_in/sign_in%20page.dart';
+import 'Homepage.dart';
 class selectmonth extends StatefulWidget {
   @override
   _selectmonthState createState() => _selectmonthState();
 }
 
 class _selectmonthState extends State<selectmonth> {
-  final _formKey = GlobalKey<FormState>();
-  final _openDropDownProgKey = GlobalKey<DropdownSearchState<String>>();
-@override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _loadCounter();
-  }
+  int _value = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("DropdownSearch Demo")),
-      body: Padding(
-        padding: const EdgeInsets.all(25),
-        child: Form(
-          key: _formKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          child: ListView(
-            padding: EdgeInsets.all(4),
-            children: <Widget>[
-              ///Menu Mode with no searchBox
-              DropdownSearch<String>(
-                validator: (v) => v == null ? "required field" : null,
-                hint: "Select a country",
-                mode: Mode.MENU,
-                showSelectedItem: true,
-                items: ["Brazil", "Italia (Disabled)", "Tunisia", 'Canada'],
-                label: "Menu mode *",
-                showClearButton: true,
-                onChanged: print,
-                popupItemDisabled: (String s) => s.startsWith('I'),
-                selectedItem: "Tunisia",
+        appBar: AppBar(
+          title: Text(" Select Month and year"),
+        ),
+        body: Column(
+          children: [
+            Container(
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(20.0),
+                        child: DropdownButton(
+                            value: _value,
+                            items: [
+                              DropdownMenuItem(
+                                child: Text("Jan"),
+                                value: 1,
+                              ),
+                              DropdownMenuItem(
+                                child: Text("Feb"),
+                                value: 2,
+                              ),
+                              DropdownMenuItem(
+                                  child: Text("March"),
+                                  value: 3
+                              ),
+                              DropdownMenuItem(
+                                  child: Text("April"),
+                                  value: 4
+                              ),
+
+                            ],
+                            onChanged: (value) {
+                              setState(() {
+                                _value = value;
+                              });
+                            }),
+                      ),
+                      SizedBox(
+                        width: 40,
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(20.0),
+                        child: DropdownButton(
+                            value: _value,
+                            items: [
+                              DropdownMenuItem(
+                                child: Text("2020"),
+                                value: 1,
+                              ),
+                              DropdownMenuItem(
+                                child: Text("2020"),
+                                value: 2,
+                              ),
+                              DropdownMenuItem(
+                                  child: Text("2020"),
+                                  value: 3
+                              ),
+                              DropdownMenuItem(
+                                  child: Text("2020"),
+                                  value: 4
+                              ),
+
+                            ],
+                            onChanged: (value) {
+                              setState(() {
+                                _value = value;
+                              });
+                            }),
+                      )
+                    ],
+                  ),
+                ],
               ),
 
-              Divider(),
+            ),
+            Container(
+              child: Column(
+                children: [
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context)=>Homepage())
+                      );
+                    },
+                    child: PrimaryButton(
+                      btnText: "Ok",
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
 
-              ///BottomSheet Mode with no searchBox
-              DropdownSearch<String>(
-                mode: Mode.BOTTOM_SHEET,
-                maxHeight: 300,
-                items: ["Brazil", "Italia", "Tunisia", 'Canada'],
-                label: "Custom BottomShet mode",
-                onChanged: print,
-                selectedItem: "Brazil",
-                showSearchBox: true,
-                searchBoxDecoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.fromLTRB(12, 12, 8, 0),
-                  labelText: "Search a country",
-                ),
-                popupTitle: Container(
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColorDark,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                    ),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Country',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-                popupShape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(24),
-                    topRight: Radius.circular(24),
-                  ),
-                ),
-              )]
-          )
-        )
-      )
+
     );
   }
- }
+}
